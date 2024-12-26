@@ -96,7 +96,7 @@ const LandingPage = () => {
         <div className="container mx-auto px-6 py-20 relative">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Smarter Savings, Ethically
+              Smarter Savings, Ethically Impact-Site-Verification: a230ca17-bb26-41f7-b420-da15d10c06ef
             </h1>
             <p className="text-lg md:text-xl mb-6">
               Get the best deals while supporting creators. We share 75% of our earnings with you.
