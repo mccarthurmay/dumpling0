@@ -2,7 +2,7 @@
     "name": "dumpling0",
     "private": true,
     "version": "0.0.0",
-    "homepage": "https://mccartheney.github.io/Dumpling0",
+    "homepage": "https://mccarthurmay.github.io/dumpling0",
     "type": "module",
     "scripts": {
     "dev": "vite",
