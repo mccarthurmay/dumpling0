@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Shield, DollarSign, Search, Percent, Tag, Mail, ExternalLink } from 'lucide-react';
-
+import { Heart, Shield, DollarSign, Search, Percent, Tag, Mail, ExternalLink, Eye } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 // Component definitions at the top
 const DumplingIcon = () => {
   return (
@@ -106,8 +107,9 @@ const LandingPage = () => {
     setSubmitStatus(email ? 'email' : 'success');
     setShowThankYou(true);
   };
-  
+
   return (
+
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white relative overflow-hidden">
@@ -119,15 +121,17 @@ const LandingPage = () => {
 
         <nav className="container mx-auto px-6 py-4 relative">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 group">
+            <Link to="/" className="flex items-center space-x-2 group">
               <div className="transform group-hover:rotate-12 transition-transform duration-300">
                 <DumplingIcon />
               </div>
               <div className="text-2xl font-bold">Dumpling0</div>
-            </div>
+            </Link>
             <div className="space-x-6">
-              <a href="#features" className="hover:text-blue-200 transition-colors duration-300">Features</a>
-              <a href="#about" className="hover:text-blue-200 transition-colors duration-300">About</a>
+              <HashLink smooth to="#features" className="hover:text-blue-200 transition-colors duration-300">Features</HashLink>
+              <Link to="/stores" className="hover:text-blue-200 transition-colors duration-300">Stores</Link>
+              <HashLink smooth to="#about" className="hover:text-blue-200 transition-colors duration-300">About</HashLink>
+              
               <button className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transform hover:scale-105 transition-all duration-300 hover:shadow-lg">
                 Add to Browser
               </button>
@@ -135,8 +139,8 @@ const LandingPage = () => {
           </div>
         </nav>
         
-        <div className="container mx-auto px-6 py-20 relative">
-          <div className="max-w-2xl">
+        <div className="container mx-auto px-6 py-20">  
+          <div className="max-w-2xl">  
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Smarter Savings, Ethically
             </h1>
@@ -152,88 +156,40 @@ const LandingPage = () => {
       </header>
 
       {/* Key Features */}
-      <section id="features" className="py-20">
+      <section id="features" className="bg-gray-50 py-20 relative overflow-hidden">
         <div className="container mx-auto px-6">
           <div className={`transform transition-all duration-1000 ${isVisible.features ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h2 className="text-3xl font-bold text-center mb-16">Why Choose Dumpling0?</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              <FeatureCard 
-                icon={<DollarSign className="w-12 h-12 text-blue-600" />}
-                title="75% Profit Sharing"
-                description="We share 75% of our affiliate commission earnings with you - significantly more generous than competitors who typically offer only 0.5-1% through points systems."
-              />
-              <FeatureCard 
-                icon={<Heart className="w-12 h-12 text-blue-600" />}
-                title="Creator-Friendly"
-                description="We never override creator affiliate links. Support your favorite content creators while still saving money."
-              />
-              <FeatureCard 
-                icon={<Shield className="w-12 h-12 text-blue-600" />}
-                title="Privacy First"
-                description="Your data is yours. We never sell your personal information or browsing history to third parties."
-              />
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <FeatureCard 
+                  icon={<DollarSign className="w-12 h-12 text-blue-600" />}
+                  title="75% Profit Sharing"
+                  description="We share 75% of our affiliate commission earnings with you - significantly more generous than competitors (Honey Gold) who offer as low as 2.5% of what they earn through points systems."
+                />
+                <FeatureCard 
+                  icon={<Eye className="w-12 h-12 text-blue-600" />}
+                  title="100% Transparent"
+                  description="See exactly what we earn and what you'll earn, in real-time. No hidden fees, no secret commissions - just complete transparency at every step."
+                />
+                <FeatureCard 
+                  icon={<Heart className="w-12 h-12 text-blue-600" />}
+                  title="Creator-Friendly*"
+                  description="We never override creator affiliate links. Support your favorite content creators while still saving money."
+                />
+                <FeatureCard 
+                  icon={<Shield className="w-12 h-12 text-blue-600" />}
+                  title="Privacy First"
+                  description="Your data is yours. We never sell your personal information or browsing history to third parties."
+                />
+                <div className="col-span-2 text-sm text-gray-500 italic mt-2 text-center">
+                  * Unlike every other cashback company out there... we see you, competitors 👀
+                </div>
+              </div>
           </div>
         </div>
       </section>
 
-      {/* Coming Soon */}
-      <section id="coming-soon" className="bg-gray-50 py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-50"/>
-        <div className="container mx-auto px-6 relative">
-          <div className={`transform transition-all duration-1000 ${isVisible.coming ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <h2 className="text-3xl font-bold text-center mb-16">Coming Soon</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <FeatureCard 
-                icon={<Search className="w-12 h-12 text-blue-600" />}
-                title="Price Comparison Engine"
-                description="Find the best deals across multiple retailers with our intelligent price comparison tool."
-              />
-              <FeatureCard 
-                icon={<Tag className="w-12 h-12 text-blue-600" />}
-                title="Smart Coupon Engine"
-                description="Automatically find and apply the best working coupon codes for maximum savings."
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About */}
-      <section id="about" className="py-20">
-        <div className="container mx-auto px-6">
-          <div className={`max-w-3xl mx-auto text-center transform transition-all duration-1000 ${isVisible.about ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <div className="mb-8 transform hover:rotate-12 transition-transform duration-300 inline-block">
-              <DumplingIcon />
-            </div>
-            <h2 className="text-3xl font-bold mb-6">Built with Trust</h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Hi, I'm a 20-year-old solo developer building Dumpling0 while pursuing my education. 
-              I created this extension because I believe in transparent and ethical savings tools 
-              that benefit both users and content creators.
-            </p>
-            <div className="bg-blue-50 p-6 rounded-lg transform hover:-translate-y-1 transition-transform duration-300">
-              <h3 className="font-bold text-xl mb-4">Our Promises to You</h3>
-              <ul className="text-left space-y-4">
-                <li className="flex items-center">
-                  <Percent className="w-6 h-6 text-blue-600 mr-2" />
-                  75% of affiliate earnings shared with users
-                </li>
-                <li className="flex items-center">
-                  <Shield className="w-6 h-6 text-blue-600 mr-2" />
-                  Your data is never sold or shared
-                </li>
-                <li className="flex items-center">
-                  <Heart className="w-6 h-6 text-blue-600 mr-2" />
-                  Creator affiliate links are always respected
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      
       {/* Partners Section */}
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-6">
@@ -242,7 +198,7 @@ const LandingPage = () => {
             
             <div className="text-center mb-12">
               <p className="text-gray-600">
-                Joined by <span className="font-medium">10+</span> major retailers and growing
+                Joined by <span className="font-medium">2</span> major retailers and growing
               </p>
               <p className="text-sm text-gray-500 mt-2">
                 We're constantly expanding our network to bring you the best savings
@@ -256,8 +212,8 @@ const LandingPage = () => {
                 Current Partners
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <PartnerCard name="Amazon" cashback="10" />
-                <PartnerCard name="eBay" cashback="8" />
+                <PartnerCard name="Amazon" cashback="7.50" />
+                <PartnerCard name="eBay" cashback="3" />
               </div>
 
               <h3 className="text-xl font-semibold mb-6 flex items-center">
@@ -266,8 +222,8 @@ const LandingPage = () => {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
                 <PartnerCard name="Best Buy" comingSoon status="Application Submitted" />
-                <PartnerCard name="Home Depot" comingSoon status="In Discussion" />
-                <PartnerCard name="Walmart" comingSoon status="Initial Review" />
+                <PartnerCard name="Home Depot" comingSoon status="Under Review" />
+                <PartnerCard name="Walmart" comingSoon status="Under Review" />
               </div>
             </div>
 
@@ -363,6 +319,63 @@ const LandingPage = () => {
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Coming Soon */}
+      <section id="coming-soon" className="bg-gray-50 py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-50"/>
+        <div className="container mx-auto px-6 relative">
+          <div className={`transform transition-all duration-1000 ${isVisible.coming ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <h2 className="text-3xl font-bold text-center mb-16">Coming Soon</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <FeatureCard 
+                icon={<Search className="w-12 h-12 text-blue-600" />}
+                title="Price Comparison Engine"
+                description="Find the best deals across multiple retailers with our intelligent price comparison tool."
+              />
+              <FeatureCard 
+                icon={<Tag className="w-12 h-12 text-blue-600" />}
+                title="Smart Coupon Engine"
+                description="Automatically find and apply the best working coupon codes for maximum savings."
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About */}
+      <section id="about" className="py-20">
+        <div className="container mx-auto px-6">
+          <div className={`max-w-3xl mx-auto text-center transform transition-all duration-1000 ${isVisible.about ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <div className="mb-8 transform hover:rotate-12 transition-transform duration-300 inline-block">
+              <DumplingIcon />
+            </div>
+            <h2 className="text-3xl font-bold mb-6">Built with Trust</h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Hi, I'm a 20-year-old solo developer building Dumpling0 while pursuing my education. 
+              I created this extension because I believe in transparent and ethical savings tools 
+              that benefit both users and content creators.
+            </p>
+            <div className="bg-blue-50 p-6 rounded-lg transform hover:-translate-y-1 transition-transform duration-300">
+              <h3 className="font-bold text-xl mb-4">Our Promises to You</h3>
+              <ul className="text-left space-y-4">
+                <li className="flex items-center">
+                  <Percent className="w-6 h-6 text-blue-600 mr-2" />
+                  75% of affiliate earnings shared with users
+                </li>
+                <li className="flex items-center">
+                  <Shield className="w-6 h-6 text-blue-600 mr-2" />
+                  Your data is never sold or shared
+                </li>
+                <li className="flex items-center">
+                  <Heart className="w-6 h-6 text-blue-600 mr-2" />
+                  Creator affiliate links are always respected
+                </li>
+              </ul>
             </div>
           </div>
         </div>
