@@ -1,28 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Shield, DollarSign, Search, Percent, Tag } from 'lucide-react';
+import { Heart, Shield, DollarSign, Search, Percent, Tag, Mail, ExternalLink } from 'lucide-react';
 
-const DumplingIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="w-12 h-12">
-    <path d="M8 32C8 20 20 8 32 8s24 12 24 24-12 24-24 24S8 44 8 32z" 
-          fill="#FFE5D2" 
-          strokeWidth="2.5"
-          stroke="#4B5563"/>
-    <path d="M14 28c0 0 8-8 18-8s18 8 18 8" 
-          fill="none" 
-          stroke="#4B5563" 
-          strokeWidth="2.5" 
-          strokeLinecap="round"/>
-    <circle cx="26" cy="34" r="2.5" fill="#4B5563"/>
-    <circle cx="38" cy="34" r="2.5" fill="#4B5563"/>
-    <path d="M26 42c3 2.5 9 2.5 12 0" 
-          fill="none" 
-          stroke="#4B5563" 
-          strokeWidth="2.5" 
-          strokeLinecap="round"/>
-    <circle cx="22" cy="38" r="2" fill="#FFA5A5" opacity="0.6"/>
-    <circle cx="42" cy="38" r="2" fill="#FFA5A5" opacity="0.6"/>
-  </svg>
-);
+// Component definitions at the top
+const DumplingIcon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="w-12 h-12">
+      <path d="M8 32C8 20 20 8 32 8s24 12 24 24-12 24-24 24S8 44 8 32z" 
+            fill="#FFE5D2" 
+            strokeWidth="2.5"
+            stroke="#4B5563"/>
+      <path d="M14 28c0 0 8-8 18-8s18 8 18 8" 
+            fill="none" 
+            stroke="#4B5563" 
+            strokeWidth="2.5" 
+            strokeLinecap="round"/>
+      <circle cx="26" cy="34" r="2.5" fill="#4B5563"/>
+      <circle cx="38" cy="34" r="2.5" fill="#4B5563"/>
+      <path d="M26 42c3 2.5 9 2.5 12 0" 
+            fill="none" 
+            stroke="#4B5563" 
+            strokeWidth="2.5" 
+            strokeLinecap="round"/>
+      <circle cx="22" cy="38" r="2" fill="#FFA5A5" opacity="0.6"/>
+      <circle cx="42" cy="38" r="2" fill="#FFA5A5" opacity="0.6"/>
+    </svg>
+  );
+};
+
+const PartnerCard = ({ name, cashback, status, comingSoon }) => {
+  return (
+    <div className={`p-6 bg-white rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 relative ${comingSoon ? 'opacity-90' : ''}`}>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 flex-shrink-0">
+            <DollarSign className={`w-full h-full ${comingSoon ? 'text-gray-400' : 'text-blue-600'}`} />
+          </div>
+          <span className={`font-medium text-lg ${comingSoon ? 'text-gray-600' : ''}`}>{name}</span>
+        </div>
+        {cashback && (
+          <span className="text-blue-600 text-sm font-medium">
+            Up to {cashback}% cashback
+          </span>
+        )}
+        {comingSoon && (
+          <span className="absolute top-4 right-4 px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">
+            Coming Soon
+          </span>
+        )}
+      </div>
+      {status && (
+        <div className="mt-3 text-sm text-gray-500">
+          Status: {status}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const FeatureCard = ({ icon, title, description }) => {
   return (
@@ -40,6 +73,8 @@ const LandingPage = () => {
     coming: false,
     about: false
   });
+  const [showThankYou, setShowThankYou] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,11 +95,18 @@ const LandingPage = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial visibility
+    handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    setSubmitStatus(email ? 'email' : 'success');
+    setShowThankYou(true);
+  };
+  
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
