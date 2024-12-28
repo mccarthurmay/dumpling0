@@ -192,6 +192,139 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+      {/* Partners Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-6">Our Growing Network</h2>
+            
+            <div className="text-center mb-12">
+              <p className="text-gray-600">
+                Joined by <span className="font-medium">10+</span> major retailers and growing
+              </p>
+              <p className="text-sm text-gray-500 mt-2">
+                We're constantly expanding our network to bring you the best savings
+              </p>
+            </div>
+            
+            {/* Current Partners */}
+            <div className="mb-16">
+              <h3 className="text-xl font-semibold mb-6 flex items-center">
+                <Shield className="w-5 h-5 text-blue-600 mr-2" />
+                Current Partners
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <PartnerCard name="Amazon" cashback="10" />
+                <PartnerCard name="eBay" cashback="8" />
+              </div>
+
+              <h3 className="text-xl font-semibold mb-6 flex items-center">
+                <Tag className="w-5 h-5 text-blue-600 mr-2" />
+                Under Review
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+                <PartnerCard name="Best Buy" comingSoon status="Application Submitted" />
+                <PartnerCard name="Home Depot" comingSoon status="In Discussion" />
+                <PartnerCard name="Walmart" comingSoon status="Initial Review" />
+              </div>
+            </div>
+
+            {/* Suggestion Box */}
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+              <div className="flex items-center justify-center mb-6">
+                <DumplingIcon />
+                <h3 className="text-2xl font-semibold ml-3">Request Your Favorite Store</h3>
+              </div>
+              
+              {!showThankYou ? (
+                <>
+                  <p className="text-gray-600 mb-6 text-center">
+                    Want to see your favorite store on Dumpling0? Let us know! 
+                    No store is too niche - we'll do our best to add it.
+                  </p>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                      <label htmlFor="store-name" className="block text-sm font-medium text-gray-700 mb-1">
+                        Store Name*
+                      </label>
+                      <input
+                        type="text"
+                        id="store-name"
+                        required
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Enter store name"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                        Your Email (to notify you when we add it)
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="email@example.com"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="store-url" className="block text-sm font-medium text-gray-700 mb-1">
+                        Store Website (optional)
+                      </label>
+                      <input
+                        type="url"
+                        id="store-url"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="https://"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="comments" className="block text-sm font-medium text-gray-700 mb-1">
+                        Why do you love this store? (optional)
+                      </label>
+                      <textarea
+                        id="comments"
+                        rows="3"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Tell us what makes this store special"
+                      ></textarea>
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center space-x-2"
+                    >
+                      <span>Submit Suggestion</span>
+                      <ExternalLink className="w-4 h-4" />
+                    </button>
+                    <p className="text-sm text-gray-500 text-center mt-2">
+                      We read every suggestion and will email you when we add your store!
+                    </p>
+                  </form>
+                </>
+              ) : (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 mx-auto mb-4">
+                    <DumplingIcon />
+                  </div>
+                  <h4 className="text-xl font-medium mb-2">Thank you for your suggestion!</h4>
+                  <p className="text-gray-600 mb-4">We'll work on adding this store to our network.</p>
+                  {submitStatus === 'email' && (
+                    <p className="text-sm text-blue-600">We'll notify you when it's added!</p>
+                  )}
+                  <button 
+                    onClick={() => {
+                      setShowThankYou(false);
+                      setSubmitStatus('');
+                    }}
+                    className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Suggest another store
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="bg-gray-50 py-12">
