@@ -35,7 +35,7 @@ const Navigation = () => {
 
 const App = () => {
   return (
-    <Router basename="/dumpling0">
+    <Router>
       <div>
         <Navigation />
         <Routes>
