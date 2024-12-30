@@ -63,7 +63,7 @@ const StorePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <StoreCard 
               name="Amazon"
-              cashback="15"
+              cashback="7.50"
               hasPage={true}
             />
             <StoreCard 
@@ -82,17 +82,17 @@ const StorePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <StoreCard 
               name="Best Buy"
-              cashback="1"
+              cashback="?"
               hasPage={false}
             />
             <StoreCard 
               name="Home Depot"
-              cashback="2"
+              cashback="?"
               hasPage={false}
             />
             <StoreCard 
               name="Walmart"
-              cashback="2"
+              cashback="?"
               hasPage={false}
             />
           </div>
