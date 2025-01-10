@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Heart, Shield, DollarSign, Search, Percent, Tag, Mail, ExternalLink, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import AboutSection from './AboutSection';
 // Component definitions at the top
 const DumplingIcon = () => {
   return (
@@ -145,7 +146,7 @@ const LandingPage = () => {
               Smarter Savings, Ethically
             </h1>
             <p className="text-lg md:text-xl mb-6">
-              Get the best deals while supporting creators. We share 75% of our earnings with you.
+              The only cashback extension that shares 100% of earnings.
             </p>
             <button className="bg-white text-blue-600 px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-50 transform hover:scale-105 transition-all duration-300 hover:shadow-lg flex items-center justify-center space-x-2">
               <span>Add to Browser</span>
@@ -154,7 +155,7 @@ const LandingPage = () => {
           </div>
         </div>
       </header>
-
+      
       {/* Key Features */}
       <section id="features" className="bg-gray-50 py-20 relative overflow-hidden">
         <div className="container mx-auto px-6">
@@ -163,18 +164,18 @@ const LandingPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 <FeatureCard 
                   icon={<DollarSign className="w-12 h-12 text-blue-600" />}
-                  title="75% Profit Sharing"
-                  description="We share 75% of our affiliate commission earnings with you - significantly more generous than competitors (Honey Gold) who offer as low as 2.5% of what they earn through points systems."
+                  title="100% Profit Sharing"
+                  description="We share 100% of our affiliate commission earnings with you - unlike any cashback platform out there."
                 />
                 <FeatureCard 
                   icon={<Eye className="w-12 h-12 text-blue-600" />}
-                  title="100% Transparent"
-                  description="See exactly what we earn and what you'll earn, in real-time. No hidden fees, no secret commissions - just complete transparency at every step."
+                  title="Transparency"
+                  description="See exactly what you'll earn, in real-time. No hidden fees, no secret commissions - just complete transparency at every step."
                 />
                 <FeatureCard 
                   icon={<Heart className="w-12 h-12 text-blue-600" />}
                   title="Creator-Friendly*"
-                  description="We never override creator affiliate links. Support your favorite content creators while still saving money."
+                  description="We don't automatically override creator affiliate links. We give you the choice to support your creator."
                 />
                 <FeatureCard 
                   icon={<Shield className="w-12 h-12 text-blue-600" />}
@@ -212,8 +213,8 @@ const LandingPage = () => {
                 Current Partners
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <PartnerCard name="Amazon" cashback="7.50" />
-                <PartnerCard name="eBay" cashback="3" />
+                <PartnerCard name="Amazon" cashback="10" />
+                <PartnerCard name="eBay" cashback="4" />
               </div>
 
               <h3 className="text-xl font-semibold mb-6 flex items-center">
@@ -348,38 +349,7 @@ const LandingPage = () => {
       </section>
 
       {/* About */}
-      <section id="about" className="py-20">
-        <div className="container mx-auto px-6">
-          <div className={`max-w-3xl mx-auto text-center transform transition-all duration-1000 ${isVisible.about ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <div className="mb-8 transform hover:rotate-12 transition-transform duration-300 inline-block">
-              <DumplingIcon />
-            </div>
-            <h2 className="text-3xl font-bold mb-6">Built with Trust</h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Hi, I'm a 20-year-old solo developer building Dumpling0 while pursuing my education. 
-              I created this extension because I believe in transparent and ethical savings tools 
-              that benefit both users and content creators.
-            </p>
-            <div className="bg-blue-50 p-6 rounded-lg transform hover:-translate-y-1 transition-transform duration-300">
-              <h3 className="font-bold text-xl mb-4">Our Promises to You</h3>
-              <ul className="text-left space-y-4">
-                <li className="flex items-center">
-                  <Percent className="w-6 h-6 text-blue-600 mr-2" />
-                  75% of affiliate earnings shared with users
-                </li>
-                <li className="flex items-center">
-                  <Shield className="w-6 h-6 text-blue-600 mr-2" />
-                  Your data is never sold or shared
-                </li>
-                <li className="flex items-center">
-                  <Heart className="w-6 h-6 text-blue-600 mr-2" />
-                  Creator affiliate links are always respected
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutSection />
 
       {/* Footer */}
       <footer className="bg-gray-50 py-12">
