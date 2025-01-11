@@ -63,12 +63,12 @@ const StorePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <StoreCard 
               name="Amazon"
-              cashback="7.50"
+              cashback="10"
               hasPage={true}
             />
             <StoreCard 
               name="eBay"
-              cashback="3"
+              cashback="4"
               hasPage={false}
             />
           </div>

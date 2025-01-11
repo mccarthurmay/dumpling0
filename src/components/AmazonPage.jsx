@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShoppingCart, DollarSign, Tag, Percent, Gift, ArrowRight, Copy } from 'lucide-react';
-const CommissionCard = ({ category, rate, effectiveRate, description, exampleProducts }) => {
+const CommissionCard = ({ category, rate, description, exampleProducts }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -10,10 +10,9 @@ const CommissionCard = ({ category, rate, effectiveRate, description, examplePro
       onMouseLeave={() => setIsHovered(false)}
     >
       <h3 className="font-medium text-lg mb-2">{category}</h3>
-      <div className="flex justify-between items-center text-sm">
-        <span className="text-gray-600">Amazon Rate: {rate}%</span>
-        <ArrowRight className="w-4 h-4 text-gray-400" />
-        <span className="text-blue-600 font-medium">Your Rate: {effectiveRate}%</span>
+      <div className="flex items-center text-sm">
+        <span className="text-blue-600 font-medium">{rate}% cashback</span>
+        <span className="text-gray-400 text-xs ml-2">(100% of Amazon's affiliate rate)</span>
       </div>
       {description && (
         <p className="text-xs text-gray-500 mt-2 border-t pt-2">
@@ -167,24 +166,22 @@ const AmazonPage = () => {
           <h2 className="text-3xl font-bold text-center mb-6">Transparent Cashback Rates</h2>
             
             <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-            We share 75% of our commission with you. Here's exactly what you'll earn on each category:
+            We share 100% of our commission with you. Here's exactly what you'll earn on each category:
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            <CommissionCard 
+              <CommissionCard 
                 category="Premium Beauty"
                 rate="10.00"
-                effectiveRate="7.50"
                 description="I was having a hard time finding examples of this section. This deal may be a rare occurrence."
                 exampleProducts={[ 
                   "L'Oreal Professional Shampoo",
                   "Kat Burki Face Cream"
                 ]}
-            />
-            <CommissionCard 
+              />
+              <CommissionCard 
                 category="Digital Music, Physical Music, Handmade Products"
                 rate="5.00"
-                effectiveRate="3.75"
                 description="Includes Full Album Downloads, Vinyls, CDs, Artisan-crafted Products, Furniture, Jewelry, Clothing, Accessories"
                 exampleProducts={[ 
                   "Midnights (vinyl) - Taylor Swift",
@@ -193,92 +190,82 @@ const AmazonPage = () => {
                   "Bible Verse Jar (handmade)",
                   "Beef Tallow For Skin (handmade)"
                 ]}
-            />
-            <CommissionCard 
+              />
+              <CommissionCard 
                 category="Physical Books, Kitchen, Automotive"
                 rate="4.50"
-                effectiveRate="3.50"
                 exampleProducts={[ 
                   "Dog Man: Big Jim Begins (book)",
                   "Caraway Nonstick Ceramic Cookware Set (kitchen)",
                   "Rain-X Windshield Washer Fluid (automotive)"
                 ]}
-            />
-            <CommissionCard 
+              />
+              <CommissionCard 
                 category="Amazon Devices & Fashion"
                 rate="4.00"
-                effectiveRate="3.00"
                 description="Includes Fire Tablets, Kindle Devices, Amazon Smart TVs, Fire TV Devices, Amazon Cloud Cam Devices, Echo, Ring Devices"
                 exampleProducts={[ 
                   "Amazon Fire TV 50 4K (smart TV)",
                   "Ring Doorbell (ring devices)"
                 ]}
-            />
-
-            <CommissionCard 
+              />
+              <CommissionCard 
                 category="Fashion"
                 rate="4.00"
-                effectiveRate="3.00"
                 description="Includes Luxury Fashion, Watches, Jewelry, Luggage, Shoes, Handbags, Sunglasses, Accessories"
                 exampleProducts={[ 
                   "Gucci Sunglasses (luxury, sunglasses)",
                   "Michael Kors Handbag (handbag)"
                 ]}
-            />
-
-            <CommissionCard 
+              />
+              <CommissionCard 
                 category="Home & Lifestyle"
                 rate="3.00"
-                effectiveRate="2.25"
                 description="Includes Toys, Furniture, Home, Lawn & Garden, Pets, Beauty, Musical Instruments, Sports, Baby Products"
                 exampleProducts={[ 
                   "Truper Garden Hoe (lawn & garden)",
                   "Pbooo Dancing Cactus (toy)"
                 ]}
-            />
-            <CommissionCard 
+              />
+              <CommissionCard 
                 category="PC & Entertainment"
                 rate="2.50"
-                effectiveRate="2.00"
                 description="Includes PC, PC Components, DVD & Blu-Ray"
                 exampleProducts={[ 
                   "AMD Ryzen 7 7800X3D (PC components)",
                   "Happy Gilmore Blu-Ray (blu-ray)"
                 ]}
-            />
-            <CommissionCard 
+              />
+              <CommissionCard 
                 category="TVs & Digital Gaming"
                 rate="2.00"
-                effectiveRate="1.50"
                 exampleProducts={[ 
                   "Stardew Valley Digital Code (digital gaming)",
                   "Samsung 4K Crystal TV"
-
                 ]}
-            />
-            <CommissionCard 
+              />
+              <CommissionCard 
                 category="Essentials"
                 rate="1.00"
-                effectiveRate="0.75"
                 description="Includes Amazon Fresh, Physical Video Games & Consoles, Grocery, Health & Personal Care"
                 exampleProducts={[ 
                   "Minecraft Xbox 360 (physical video game)",
                   "Cinnamon Toast Crunch (grocery)"
                 ]}
-            />
-            <CommissionCard 
+              />
+              <CommissionCard 
                 category="Other Categories"
                 rate="4.00"
-                effectiveRate="3.00"
-            />
-            <div className="col-span-2 p-4 bg-red-50 rounded-lg">
+              />
+              <div className="col-span-2 p-4 bg-red-50 rounded-lg">
                 <h3 className="font-bold text-red-600 mb-2">Excluded Categories (0% Cashback)</h3>
                 <p className="text-sm text-gray-600">
-                Gift Cards, Wireless Service Plans, Alcoholic Beverages, Digital Kindle Products purchased as a subscription, 
-                Vehicles, Restaurant Food Delivery, Amazon Appstore, Amazon Prime, Amazon Pay Places
+                  Gift Cards, Wireless Service Plans, Alcoholic Beverages, Digital Kindle Products purchased as a subscription, 
+                  Vehicles, Restaurant Food Delivery, Amazon Appstore, Amazon Prime, Amazon Pay Places
                 </p>
+              </div>
             </div>
-            </div>
+                        
         </div>
         </section>
 

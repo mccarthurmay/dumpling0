@@ -2,32 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Heart, Shield, DollarSign, Search, Percent, Tag, Mail, ExternalLink, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import AboutSection from './AboutSection';
+
 // Component definitions at the top
 const DumplingIcon = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="w-12 h-12">
-      <path d="M8 32C8 20 20 8 32 8s24 12 24 24-12 24-24 24S8 44 8 32z" 
-            fill="#FFE5D2" 
-            strokeWidth="2.5"
-            stroke="#4B5563"/>
-      <path d="M14 28c0 0 8-8 18-8s18 8 18 8" 
-            fill="none" 
-            stroke="#4B5563" 
-            strokeWidth="2.5" 
-            strokeLinecap="round"/>
-      <circle cx="26" cy="34" r="2.5" fill="#4B5563"/>
-      <circle cx="38" cy="34" r="2.5" fill="#4B5563"/>
-      <path d="M26 42c3 2.5 9 2.5 12 0" 
-            fill="none" 
-            stroke="#4B5563" 
-            strokeWidth="2.5" 
-            strokeLinecap="round"/>
-      <circle cx="22" cy="38" r="2" fill="#FFA5A5" opacity="0.6"/>
-      <circle cx="42" cy="38" r="2" fill="#FFA5A5" opacity="0.6"/>
-    </svg>
+    <img 
+      src="./icon/icon.png" 
+      alt="Dumpling Icon"
+      className="w-12 h-12"
+    />
   );
 };
+  
+
 
 const PartnerCard = ({ name, cashback, status, comingSoon }) => {
   return (
@@ -104,8 +91,30 @@ const LandingPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const email = event.target.email.value;
-    setSubmitStatus(email ? 'email' : 'success');
+    
+    // Get form values
+    const storeName = event.target['store-name'].value;
+    const userEmail = event.target.email.value;
+    const storeUrl = event.target['store-url'].value;
+    const comments = event.target.comments.value;
+    
+    // Construct email body
+    const emailBody = `
+Store Name: ${storeName}
+Store URL: ${storeUrl || 'Not provided'}
+User Email: ${userEmail || 'Not provided'}
+Comments: ${comments || 'Not provided'}
+    `.trim();
+    
+    // Construct mailto URL
+    const mailtoUrl = `mailto:suggestion@dumpling0.com?subject=Store Suggestion: ${encodeURIComponent(storeName)}&body=${encodeURIComponent(emailBody)}`;
+    
+    // Open default email client
+    window.location.href = mailtoUrl;
+    
+    // Show thank you message
+    const hasEmail = userEmail && userEmail.trim().length > 0;
+    setSubmitStatus(hasEmail ? 'email' : 'success');
     setShowThankYou(true);
   };
 
@@ -157,39 +166,92 @@ const LandingPage = () => {
       </header>
       
       {/* Key Features */}
-      <section id="features" className="bg-gray-50 py-20 relative overflow-hidden">
+      {/* About */}
+      <section id="about" className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-6">
-          <div className={`transform transition-all duration-1000 ${isVisible.features ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <h2 className="text-3xl font-bold text-center mb-16">Why Choose Dumpling0?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <FeatureCard 
-                  icon={<DollarSign className="w-12 h-12 text-blue-600" />}
-                  title="100% Profit Sharing"
-                  description="We share 100% of our affiliate commission earnings with you - unlike any cashback platform out there."
-                />
-                <FeatureCard 
-                  icon={<Eye className="w-12 h-12 text-blue-600" />}
-                  title="Transparency"
-                  description="See exactly what you'll earn, in real-time. No hidden fees, no secret commissions - just complete transparency at every step."
-                />
-                <FeatureCard 
-                  icon={<Heart className="w-12 h-12 text-blue-600" />}
-                  title="Creator-Friendly*"
-                  description="We don't automatically override creator affiliate links. We give you the choice to support your creator."
-                />
-                <FeatureCard 
-                  icon={<Shield className="w-12 h-12 text-blue-600" />}
-                  title="Privacy First"
-                  description="Your data is yours. We never sell your personal information or browsing history to third parties."
-                />
-                <div className="col-span-2 text-sm text-gray-500 italic mt-2 text-center">
-                  * Unlike every other cashback company out there... we see you, competitors 👀
-                </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="mb-8 transform hover:rotate-12 transition-transform duration-300 inline-block">
+                <DumplingIcon />
               </div>
+              <h2 className="text-3xl font-bold mb-6">Why We Made This</h2>
+              <p className="text-lg text-gray-600 mb-8">
+                Hi, we're Max and Sophia, two college students who got fed up with the current state of cashback extensions. 
+                Dumpling0 is a passion project of ours because we believe the industry needs more transparency and fairness.
+              </p>
+            </div>
+  
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <h3 className="font-bold text-xl mb-4 text-blue-600">The Problem</h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">•</span>
+                    Companies like Honey take up to 90% of affiliate commissions
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">•</span>
+                    Creator affiliate links get overridden without consent
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">•</span>
+                    Hidden affiliate injections even when no coupons exist
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">•</span>
+                    User data being sold to third parties
+                  </li>
+                </ul>
+              </div>
+  
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <h3 className="font-bold text-xl mb-4 text-green-600">Our Solution</h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">•</span>
+                    100% of affiliate earnings shared with users 
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">•</span>
+                    Full respect for creator affiliate links
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">•</span>
+                    100% transparent operation - no hidden injections
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 mr-2">•</span>
+                    Zero data selling, ever
+                  </li>
+                </ul>
+              </div>
+            </div>
+  
+            <div className="bg-blue-50 p-8 rounded-xl mb-12">
+              <h3 className="font-bold text-xl mb-4 text-center">Community-Powered Project</h3>
+              <p className="text-gray-600 mb-6">
+                Dumpling0 is run entirely through community support. We're not backed by venture capital or big tech - 
+                we're just two students trying to make online shopping more fair for everyone. While this is a portfolio 
+                project to help us land future opportunities, we're committed to keeping it running as long as the 
+                community supports it.
+              </p>
+              <div className="flex justify-center space-x-4">
+                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300 flex items-center">
+                  Support on Patreon <ExternalLink className="w-4 h-4 ml-2" />
+                </button>
+              </div>
+            </div>
+  
+            <div className="text-center text-sm text-gray-500">
+              <p>
+                Running costs scale with our user base. Your support through Patreon helps keep our servers running 
+                and enables us to add more features and stores.
+              </p>
+            </div>
           </div>
         </div>
       </section>
-
+  
       
       {/* Partners Section */}
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
@@ -343,13 +405,16 @@ const LandingPage = () => {
                 title="Smart Coupon Engine"
                 description="Automatically find and apply the best working coupon codes for maximum savings."
               />
+              <FeatureCard
+                title="Optional Ad Activation"
+                description="Support us through *slightly* intrusive ads ~ we'll use your feedback of course. It's like donating without donating!"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* About */}
-      <AboutSection />
+      
 
       {/* Footer */}
       <footer className="bg-gray-50 py-12">
@@ -360,7 +425,9 @@ const LandingPage = () => {
               <div className="text-gray-600">© 2024 Dumpling0. All rights reserved.</div>
             </div>
             <div className="space-x-6">
-              <a href="#privacy" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">Privacy Policy</a>
+            <Link to="/privacy" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+              Privacy Policy
+            </Link>
               <a href="#terms" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">Terms of Service</a>
               <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">Contact</a>
             </div>

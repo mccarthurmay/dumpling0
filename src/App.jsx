@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import LandingPage from './components/LandingPage';
 import StorePage from './components/StorePage';
 import AmazonPage from './components/AmazonPage';
-
+import PrivacyPolicy from './components/PrivacyPolicy';
 const Navigation = () => {
   const location = useLocation();
   
@@ -42,6 +42,7 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/stores" element={<StorePage />} />
           <Route path="/stores/amazon" element={<AmazonPage />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
       </div>
     </Router>
