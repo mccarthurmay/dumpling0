@@ -2,18 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Heart, Shield, DollarSign, Search, Percent, Tag, Mail, ExternalLink, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import DumplingIcon from './DumplingIcon.jsx';
 
-// Component definitions at the top
-const DumplingIcon = () => {
-  return (
-    <img 
-      src="./icon/icon.png" 
-      alt="Dumpling Icon"
-      className="w-12 h-12"
-    />
-  );
-};
-  
 
 
 const PartnerCard = ({ name, cashback, status, comingSoon }) => {
