@@ -3,6 +3,7 @@ import { Heart, Shield, DollarSign, Search, Percent, Tag, Mail, ExternalLink, Ey
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import DumplingIcon from './DumplingIcon.jsx';
+import PayPalDonateButton from './PayPalDonateButton.jsx';
 
 
 
@@ -226,9 +227,13 @@ Comments: ${comments || 'Not provided'}
                 community supports it.
               </p>
               <div className="flex justify-center space-x-4">
-                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300 flex items-center">
+                <button 
+                onClick={() => window.open('https://www.patreon.com/dumpling0', '_blank', 'noopener,noreferrer')}
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300 flex items-center"
+                >
                   Support on Patreon <ExternalLink className="w-4 h-4 ml-2" />
                 </button>
+                <PayPalDonateButton/>
               </div>
             </div>
   
