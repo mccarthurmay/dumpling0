@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink } from 'lucide-react';
 import DumplingIcon from './DumplingIcon';
 import PropTypes from 'prop-types';
 
 // Add export default
 export const StoreSuggestionForm = () => {
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data === 'success') {
+        setShowThankYou(true);
+        setIsSubmitting(false);
+      } else if (event.data === 'error') {
+        setError('Failed to submit suggestion. Please try again later.');
+        setIsSubmitting(false);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
   const [showThankYou, setShowThankYou] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -23,7 +37,7 @@ export const StoreSuggestionForm = () => {
     };
 
     try {
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_ML-NP_O2v5lqykGIeEqElGIzTpeAy1I5XPqXa3VRSsFoh7LMCOxlOizArgLuaBQU/exec';
+      const SCRIPT_URL = 'YOUR_DEPLOYED_WEB_APP_URL'; // Replace with your URL
 
 const response = await fetch(SCRIPT_URL, {
         method: 'POST',
