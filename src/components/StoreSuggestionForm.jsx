@@ -37,7 +37,7 @@ export const StoreSuggestionForm = () => {
     };
 
     try {
-      const SCRIPT_URL = 'YOUR_DEPLOYED_WEB_APP_URL'; // Replace with your URL
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx40X_zRWw7l12p4sC3W2H2eI1v9BL_MWXpsaf9vsp6beMox-LDZsIuHOT-vhS7fEqN/exec'; // Replace with your URL
 
 const response = await fetch(SCRIPT_URL, {
         method: 'POST',
