@@ -1,10 +1,71 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Shield, DollarSign, Search, Percent, Tag, Mail, ExternalLink, Eye } from 'lucide-react';
+import { Heart, Shield, DollarSign, Search, Percent, Tag, Mail, ExternalLink, Eye, User, LogIn } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import { useAuth } from '../contexts/AuthContext';
 import DumplingIcon from './DumplingIcon.jsx';
 import PayPalDonateButton from './PayPalDonateButton.jsx';
 import StoreSuggestionForm from './StoreSuggestionForm.jsx';
+
+const AccountButton = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
+  
+  if (isLoggedIn) {
+    return (
+      <div 
+        className="relative"
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
+      >
+        {/* Wrapper div that contains both button and dropdown */}
+        <div className="h-full">
+          <button 
+            className="flex items-center space-x-2 text-white hover:text-blue-200 transition-colors duration-300 h-full"
+          >
+            <User className="w-5 h-5" />
+            <span>Account</span>
+          </button>
+          
+          {/* Remove any gap between button and dropdown */}
+          {isOpen && (
+            <>
+              {/* Invisible bridge to prevent gap */}
+              <div className="absolute h-2 w-full top-full" />
+              
+              <div 
+                className="absolute right-0 top-full w-48 bg-white rounded-lg shadow-lg py-2 z-50"
+              >
+                <Link 
+                  to="/account" 
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-50 transition-colors duration-200"
+                >
+                  My Account
+                </Link>
+                <button 
+                  onClick={logout}
+                  className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-blue-50 transition-colors duration-200"
+                >
+                  Sign Out
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Link 
+      to="/login"
+      className="flex items-center space-x-2 text-white hover:text-blue-200 transition-colors duration-300"
+    >
+      <LogIn className="w-5 h-5" />
+      <span>Sign In</span>
+    </Link>
+  );
+};
 
 
 
@@ -54,8 +115,6 @@ const LandingPage = () => {
     coming: false,
     about: false
   });
-  const [showThankYou, setShowThankYou] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,37 +140,7 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    
-    // Get form values
-    const storeName = event.target['store-name'].value;
-    const userEmail = event.target.email.value;
-    const storeUrl = event.target['store-url'].value;
-    const comments = event.target.comments.value;
-    
-    // Construct email body
-    const emailBody = `
-Store Name: ${storeName}
-Store URL: ${storeUrl || 'Not provided'}
-User Email: ${userEmail || 'Not provided'}
-Comments: ${comments || 'Not provided'}
-    `.trim();
-    
-    // Construct mailto URL
-    const mailtoUrl = `mailto:suggestion@dumpling0.com?subject=Store Suggestion: ${encodeURIComponent(storeName)}&body=${encodeURIComponent(emailBody)}`;
-    
-    // Open default email client
-    window.location.href = mailtoUrl;
-    
-    // Show thank you message
-    const hasEmail = userEmail && userEmail.trim().length > 0;
-    setSubmitStatus(hasEmail ? 'email' : 'success');
-    setShowThankYou(true);
-  };
-
   return (
-
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white relative overflow-hidden">
@@ -122,19 +151,20 @@ Comments: ${comments || 'Not provided'}
         </div>
 
         <nav className="container mx-auto px-6 py-4 relative">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between relative z-50">
             <Link to="/" className="flex items-center space-x-2 group">
               <div className="transform group-hover:rotate-12 transition-transform duration-300">
                 <DumplingIcon />
               </div>
               <div className="text-2xl font-bold">Dumpling0</div>
             </Link>
-            <div className="space-x-6">
-              <HashLink smooth to="#features" className="hover:text-blue-200 transition-colors duration-300">Features</HashLink>
+            <div className="flex items-center space-x-6">
+              <AccountButton />
               <Link to="/stores" className="hover:text-blue-200 transition-colors duration-300">Stores</Link>
               <HashLink smooth to="#about" className="hover:text-blue-200 transition-colors duration-300">About</HashLink>
-              
-              <button className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transform hover:scale-105 transition-all duration-300 hover:shadow-lg">
+              <button 
+              onClick={() => window.open('https://chromewebstore.google.com/detail/dumpling0/ndkdhoccdoakbnpaofnapceeagllofjc', '_blank', 'noopener,noreferrer')}
+              className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transform hover:scale-105 transition-all duration-300 hover:shadow-lg">
                 Add to Browser
               </button>
             </div>
@@ -149,15 +179,15 @@ Comments: ${comments || 'Not provided'}
             <p className="text-lg md:text-xl mb-6">
               The only cashback extension that shares 100% of earnings.
             </p>
-            <button className="bg-white text-blue-600 px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-50 transform hover:scale-105 transition-all duration-300 hover:shadow-lg flex items-center justify-center space-x-2">
+            <button 
+            onClick={() => window.open('https://chromewebstore.google.com/detail/dumpling0/ndkdhoccdoakbnpaofnapceeagllofjc', '_blank', 'noopener,noreferrer')}
+            className="bg-white text-blue-600 px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-50 transform hover:scale-105 transition-all duration-300 hover:shadow-lg flex items-center justify-center space-x-2">
               <span>Add to Browser</span>
               <span className="text-sm">(It's Free)</span>
             </button>
           </div>
         </div>
       </header>
-      
-      {/* Key Features */}
       {/* About */}
       <section id="about" className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-6">
@@ -229,8 +259,8 @@ Comments: ${comments || 'Not provided'}
               </p>
               <div className="flex justify-center space-x-4">
                 <button 
-                onClick={() => window.open('https://www.patreon.com/dumpling0', '_blank', 'noopener,noreferrer')}
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300 flex items-center"
+                  onClick={() => window.open('https://www.patreon.com/dumpling0', '_blank', 'noopener,noreferrer')}
+                  className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300 flex items-center"
                 >
                   Support on Patreon <ExternalLink className="w-4 h-4 ml-2" />
                 </button>
@@ -247,8 +277,7 @@ Comments: ${comments || 'Not provided'}
           </div>
         </div>
       </section>
-  
-      
+
       {/* Partners Section */}
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-6">
@@ -323,6 +352,7 @@ Comments: ${comments || 'Not provided'}
                 description="Automatically find and apply the best working coupon codes for maximum savings."
               />
               <FeatureCard
+                icon={<Eye className="w-12 h-12 text-blue-600" />}
                 title="Optional Ad Activation"
                 description="Support us through *slightly* intrusive ads ~ we'll use your feedback of course. It's like donating without donating!"
               />
@@ -342,9 +372,9 @@ Comments: ${comments || 'Not provided'}
               <div className="text-gray-600">© 2024 Dumpling0. All rights reserved.</div>
             </div>
             <div className="space-x-6">
-            <Link to="/privacy" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
-              Privacy Policy
-            </Link>
+              <Link to="/privacy" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                Privacy Policy
+              </Link>
               <a href="#terms" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">Terms of Service</a>
               <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors duration-300">Contact</a>
             </div>
